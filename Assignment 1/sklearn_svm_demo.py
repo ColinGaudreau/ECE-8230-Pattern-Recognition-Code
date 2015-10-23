@@ -10,7 +10,6 @@ import gzip
 from sklearn.svm import LinearSVC, SVC
 import os.path
 import requests
-import shutil
 
 def load_data(images, labels, number_desired=float('inf'), reshape=True):
 	'''
@@ -81,7 +80,7 @@ MNIST_FILES = {
 get_mnist_data(MNIST_FILES)
 
 print 'Fetching training data'
-train_data, train_labels = load_data('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz',100)
+train_data, train_labels = load_data('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz',5000)
 train_data = reshape_image_data(train_data)
 
 # Choose type of Kernel
@@ -101,3 +100,13 @@ test_data = reshape_image_data(test_data)
 
 print 'Calculating score...'
 print clf.score(test_data, test_labels)
+
+import cv2
+try:
+	import cv2
+	im = cv2.imread('two.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)
+	im = np.reshape(im, (1,im.shape[0]*im.shape[1]))
+	print 'Prediction for my hand writing (2):'
+	print clf.predict(im)
+except:
+	print 'OpenCV python wrapper not in python path, so couldn\'t do demo with my handwriting'
