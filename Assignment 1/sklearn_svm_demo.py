@@ -6,9 +6,11 @@ Assignment 1.
 import struct
 import numpy as np
 import pdb
-import sys
-import time
+import gzip
 from sklearn.svm import LinearSVC, SVC
+import os.path
+import requests
+import shutil
 
 def load_data(images, labels, number_desired=float('inf'), reshape=True):
 	'''
@@ -19,7 +21,7 @@ def load_data(images, labels, number_desired=float('inf'), reshape=True):
 	loaded_labels = None
 
 	# read image file
-	with open(images, 'rb') as imfile:
+	with gzip.open(images, 'rb') as imfile:
 		imfile.read(4) # magin number at start
 		num_im = struct.unpack('>i', imfile.read(4))[0] # read number of images
 		num_row = struct.unpack('>i', imfile.read(4))[0] # read number of rows
@@ -36,7 +38,7 @@ def load_data(images, labels, number_desired=float('inf'), reshape=True):
 		imfile.close()
 
 	# read label file
-	with open(labels, 'rb') as lbfile:
+	with gzip.open(labels, 'rb') as lbfile:
 		lbfile.read(4) # magic number
 		num_labels = struct.unpack('>i', lbfile.read(4))[0]
 		number_desired = min(number_desired, num_labels) 
@@ -59,15 +61,32 @@ def reshape_image_data(im):
 	'''
 	return np.reshape(im, (im.shape[0], im.shape[1]*im.shape[2]))
 
+def get_mnist_data(files):
+	BASE_URL = 'http://yann.lecun.com/exdb/mnist/'
+	for filename in files:
+		if not os.path.isfile(files[filename]):
+			with open(files[filename], 'wb') as f:
+				r = requests.get(BASE_URL + files[filename], stream=True)
+				shutil.copyfileobj(r.raw, f)
+				f.close()
+
+
+MNIST_FILES = {
+	'training_images': 'train-images-idx3-ubyte.gz',
+	'training_labels': 'train-labels-idx1-ubyte.gz',
+	'test_images': 't10k-images-idx3-ubyte.gz',
+	'test_labels': 't10k-labels-idx1-ubyte.gz',
+}
+
+get_mnist_data(MNIST_FILES)
 
 print 'Fetching training data'
-train_data, train_labels = load_data('train-images-idx3-ubyte', 'train-labels-idx1-ubyte', 6000)
-
+train_data, train_labels = load_data('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz',100)
 train_data = reshape_image_data(train_data)
 
 # Choose type of Kernel
 # clf = LinearSVC() # choose this for linear
-# clf = SVC(kernel='rbf') # radial basis, takes a LOONNNNNNNGGGGGGGG time
+# clf = SVC(kernel='rbf') # radial basis, takes a LOONNNNNNNGGGGGGGG time and sucks
 clf = SVC(kernel='poly', degree=2) # poly
 
 print 'Training data...'
@@ -76,7 +95,7 @@ clf.fit(train_data, train_labels)
 del train_data, train_labels
 
 print 'Fetching test data'
-test_data, test_labels = load_data('t10k-images-idx3-ubyte', 't10k-labels-idx1-ubyte')
+test_data, test_labels = load_data('t10k-images-idx3-ubyte.gz', 't10k-labels-idx1-ubyte.gz')
 
 test_data = reshape_image_data(test_data)
 
