@@ -1,9 +1,11 @@
 function w = find_fisher_opt_plane(dsets)
 %   Finds optimal plane using Fisher's criterion
-% for data sets d2 and d2.
+% the data sets found in the cx1 cell array dsets
 %
-% d1 and d2 are nxd vectors (where n and d are the data set size
-% and feature space dimension respectively).
+% each cell is the ni x d data for class i
+% Cacluted between and within class covariance
+% and finds the eigenvector corresponding to the
+% maximal eigenvalue of S_W^-1 S_B.
 
 S_B = get_between_class_cov(dsets);
 
