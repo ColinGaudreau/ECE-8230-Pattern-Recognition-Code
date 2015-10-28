@@ -22,7 +22,7 @@ for dset = dsets
     end
 end
 
-maxmat = inv(S_W) \ S_B;
+maxmat = inv(S_W) * S_B;
 
 [V,D] = eig(maxmat);
 [~,ind] = max(diag(D));

@@ -168,10 +168,14 @@ plot(class2(:,1), class2(:,2), 'sb', 'linewidth', 2);
 legend('Iris Setosa', 'Iris Versicolor and Virginica');
 title('Raw data');
 
-%% Find optimial plane
+%% Find optimal plane
 
 % finding optimal plane
 w = find_fisher_opt_plane({class1;class2})';
+
+% Find projecting plane (i.e. plane orthogonal to w).
+w = cross([w,0], [0,0,1]); w = w([1,2]);
+
 wnorm = norm(w);
 wcl1 = repmat(w, size(class1,1), 1);
 wcl2 = repmat(w, size(class2,1), 1);
@@ -186,7 +190,7 @@ plot(cl2proj(:,1), cl2proj(:,2), 'sb', 'linewidth', 2);
 data = cat(1,cl1proj,cl2proj);
 xmin = min(data(:,1))-1; xmax = max(data(:,1))+1;
 plot([xmin,xmax], -w(1)/w(2) * [xmin,xmax], '--k', 'linewidth', 2);
-legend('Iris Setosa', 'Iris Versicolor and Virginica','w');
+legend('Iris Setosa', 'Iris Versicolor and Virginica','Plane orthogonal w.');
 title('Projected data');
 
 %% Change of basis so that data is shown just on x-plane
@@ -238,7 +242,7 @@ legend('Iris Setosa', 'Iris Versicolor and Virginica', 'Normal distribution for 
 %% Find the threshold point (i.e. where the two normal distributions cross)
 
 f_findzero = @(x) f(x, mean1, std1) - f(x, mean2, std2);
-thresh = fzero(f_findzero, [0]);
+thresh = fzero(f_findzero, [(mean1 + mean2)/2]);
 
 %% Plot threshold on top of data
 
