@@ -4,7 +4,7 @@ clc, close all force, clear all;
 %% Load data
 f = fopen('OlympicData.txt', 'rb');
 
-reg1 = '(?<year>\d\d\d\d)';
+reg1 = '(?<year>\d{4})';
 reg2 = '(?<first>\w+)\s+(?<last>\w+(-\w+)?)\s+\((?<country>.*)\)';
 reg3 = '(?<time>\d+\.\d+)';
 
