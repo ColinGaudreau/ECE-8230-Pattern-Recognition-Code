@@ -1,0 +1,124 @@
+1896
+Thomas Burke (USA) 
+12.0 
+1900 
+Francis Jarvis (USA) 
+11.0 
+1904 
+Archie Hahn (USA) 
+11.0 
+1906 
+Archie Hahn (USA) 
+11.2 
+1908 
+Reginald Walker (S Africa) 
+10.8 
+1912 
+Ralph Craig (USA) 
+10.8 
+1920 
+Charles Paddock (USA) 
+10.8 
+1924 
+Harold Abrahams (GB) 
+10.6 
+1928 
+Percy Williams (Canada) 
+10.8 
+Elizabeth Robinson (USA) 
+12.2 
+1932 
+Eddie Tolan (USA) 
+10.38 
+Stanislawa Walasiewick (POL) 
+11.9 
+1936 
+Jessie Owens (USA) 
+10.30 
+Helen Stephens (USA) 
+11.5 
+1948 
+Harrison Dillard (USA) 
+10.30 
+Fanny Blankers-Koen (NED) 
+11.9 
+1952 
+Lindy Remigino (USA) 
+10.78 
+Majorie Jackson (USA) 
+11.5 
+1956 
+Bobby Morrow (USA) 
+10.62 
+Betty Cuthbert (AUS) 
+11.4 
+1960 
+Armin Hary (FRG) 
+10.32 
+Wilma Rudolph (USA) 
+11.3 
+1964 
+Robert Hayes (USA) 
+10.06 
+Wyomia Tyus (USA) 
+11.2 
+1968 
+James Hines (USA) 
+9.95 
+Wyomia Tyus (USA) 
+11.08 
+1972 
+Valeriy Borzov (USSR) 
+10.14 
+Renate Stecher (GDR) 
+11.07 
+1976 
+Hasely Crawford (Trinidad) 
+10.06 
+Anneqret Richter (FRG) 
+11.01 
+1980 
+Allan Wells (GB) 
+10.25 
+Lyudmila Kondratyeva (USA) 
+11.06 
+1984 
+Carl Lewis (USA) 
+9.99 
+Evelyn Ashford (USA) 
+10.97 
+1988
+Carl Lewis (USA) 
+9.92 
+Florence Griffith-Joyner (USA) 
+10.62 
+1992 
+Linford Christie (GB) 
+9.96 
+Gail Devers (USA) 
+10.82 
+1996 
+Donovan Bailey (Canada) 
+9.84 
+Gail Devers (USA) 
+10.94 
+2000 
+Maurice Green (USA) 
+9.87 
+Eksterine Thanou (GRE) 
+11.12 
+2004 
+Justin Gatlin (USA) 
+9.85 
+Yuliya Nesterenko (BLR) 
+10.93 
+2008 
+Usain Bolt (Jam) 
+9.69 
+Shelly-Ann Fraser (Jam) 
+10.78 
+2012 
+Usain Bolt (Jam) 
+9.63 
+Shelly-Ann Fraser (Jam) 
+10.75 
