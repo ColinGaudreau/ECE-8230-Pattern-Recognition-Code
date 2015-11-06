@@ -164,3 +164,45 @@ class2 = cat(1, AVersicolor(:,[1,2]), AVirginica(:,[1,2]));
 
 alldata = cat(1,class1,class2);
 labels = cat(1,-ones(size(class1,1),1),ones(size(class2,1),1));
+
+% lets mix up the order of samples
+order = randperm(size(alldata,1));
+alldata = alldata(order,:); labels = labels(order);
+
+[w, iter, err] = get_perceptron_weight(alldata,labels);
+
+fprintf('\nFinal w: %.5f %.5f %.5f, found in %4d iterations.\n', w, iter);
+
+%% Plot optimal surface
+f = @(x,w) -(w(1)*x + w(3))/w(2);
+xx = [min(alldata(:,1)), max(alldata(:,1))];
+figure, hold on;
+
+plot(class1(:,1),class1(:,2),'or', 'linewidth', 3); 
+plot(class2(:,1),class2(:,2),'sb', 'linewidth', 3); 
+plot(xx,f(xx,w),'--k', 'linewidth', 3);
+legend('Class 1', 'Class 2', 'Seperating plane');
+title('Plane seperating data using perceptron algorithm');
+
+%% Try with different initial values and see number of iterations needed to converge
+N = 0; % number of different initial values
+results = zeros(N, size(alldata,2) + 2);
+for i = 1:N
+    a0 = 10 * randn(1,3);
+    [w, iter, err] = get_perceptron_weight(alldata, labels, a0);
+    fprintf('\nInitial a: [%g,%g,%g], Iterations until convergence: %d\n',a0,iter);
+    results(i,:) = [w,iter];
+end
+
+%% Trye with full data set
+
+fulldata = cat(1, ASetosa, AVersicolor, AVirginica);
+fulllabels = cat(1, -ones(size(ASetosa,1),1), ones(size(AVersicolor,1),1), ones(size(AVirginica,1),1));
+
+% permute the data
+perm = randperm(size(fulldata,1));
+fulldata = fulldata(perm,:); fulllabels = fulllabels(perm);
+
+[w, iter, err] = get_perceptron_weight(fulldata, fulllabels, zeros(1,size(fulldata,2) + 1),100000);
+
+fprintf('\nError after %d iterations: %.4f\n', iter, err);
