@@ -77,36 +77,36 @@ MNIST_FILES = {
 	'test_labels': 't10k-labels-idx1-ubyte.gz',
 }
 
-# get_mnist_data(MNIST_FILES)
+get_mnist_data(MNIST_FILES)
 
-# print 'Fetching training data'
-# train_data, train_labels = load_data('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz',5000)
-# train_data = reshape_image_data(train_data)
+print 'Fetching training data'
+train_data, train_labels = load_data('train-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz',5000)
+train_data = reshape_image_data(train_data)
 
-# # Choose type of Kernel
-# # clf = LinearSVC() # choose this for linear
-# # clf = SVC(kernel='rbf') # radial basis, takes a LOONNNNNNNGGGGGGGG time and sucks
-# clf = SVC(kernel='poly', degree=2) # poly
+# Choose type of Kernel
+# clf = LinearSVC() # choose this for linear
+# clf = SVC(kernel='rbf') # radial basis, takes a LOONNNNNNNGGGGGGGG time and sucks
+clf = SVC(kernel='poly', degree=2) # poly
 
-# print 'Training data...'
-# clf.fit(train_data, train_labels)
+print 'Training data...'
+clf.fit(train_data, train_labels)
 
-# del train_data, train_labels
+del train_data, train_labels
 
-# print 'Fetching test data'
-# test_data, test_labels = load_data('t10k-images-idx3-ubyte.gz', 't10k-labels-idx1-ubyte.gz')
+print 'Fetching test data'
+test_data, test_labels = load_data('t10k-images-idx3-ubyte.gz', 't10k-labels-idx1-ubyte.gz')
 
-# test_data = reshape_image_data(test_data)
+test_data = reshape_image_data(test_data)
 
-# print 'Calculating score...'
-# print clf.score(test_data, test_labels)
+print 'Calculating score...'
+print clf.score(test_data, test_labels)
 
-# import cv2
-# try:
-# 	import cv2
-# 	im = cv2.imread('two.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)
-# 	im = np.reshape(im, (1,im.shape[0]*im.shape[1]))
-# 	print 'Prediction for my hand writing (2):'
-# 	print clf.predict(im)
-# except:
-# 	print 'OpenCV python wrapper not in python path, so couldn\'t do demo with my handwriting'
+import cv2
+try:
+	import cv2
+	im = cv2.imread('two.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)
+	im = np.reshape(im, (1,im.shape[0]*im.shape[1]))
+	print 'Prediction for my hand writing (2):'
+	print clf.predict(im)
+except:
+	print 'OpenCV python wrapper not in python path, so couldn\'t do demo with my handwriting'
