@@ -26,6 +26,7 @@ for i = 1:MAX_ITERATION
         plot(xdata, 0, 'or'); hold off;
         subplot(2,1,2), hold on;
         plot(i,theta_0,'ob','linewidth',2);
+        xlabel('Iteration'); ylabel('Value of Estimate');
         drawnow;
     end
     

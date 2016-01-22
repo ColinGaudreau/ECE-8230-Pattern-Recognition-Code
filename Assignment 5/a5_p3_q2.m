@@ -1,5 +1,5 @@
 N = [20,50,100,200]; % number of samples
-L = 100; % number of training samples
+L = 1000; % number of training samples
 lambda = 1;
 lambda_D = @(x) log(1 + length(x)/sum(x)); % Maximum likelihood estimate of lambda
 estimate_D = zeros(L,1);
