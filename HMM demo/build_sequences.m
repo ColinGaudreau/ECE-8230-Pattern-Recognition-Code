@@ -1,0 +1,19 @@
+function build_sequences()
+% Build sequence of states for all the words
+
+dirs = {...
+        'data/GO/',...
+        'data/HELP/',...
+        'data/NO/',...
+        'data/STOP/',...
+        'data/YES/'...
+    };
+
+C = load('data/codebook.mat');
+C = C.C;
+
+for i = 1:length(dirs)
+    find_codebook_seq(C, dirs{i});
+end
+
+end

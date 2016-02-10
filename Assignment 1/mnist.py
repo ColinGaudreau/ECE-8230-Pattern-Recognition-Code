@@ -231,7 +231,13 @@ def main(model='mlp', num_epochs=500):
     print("Loading data...")
     X_train, y_train, X_val, y_val, X_test, y_test = load_dataset()
 
-    from pdb import set_trace as st; st()
+    # make effective data set smaller
+    ind1 = np.arange(y_train.size); ind2 = np.arange(y_test.size)
+    np.random.shuffle(ind1); np.random.shuffle(ind2)
+    X_train, y_train = X_train[ind1[:2000]], y_train[ind1[:2000]]
+    X_test, y_test = X_test[ind2[:1000]], y_test[ind2[:1000]]
+
+    from pdb import set_trace as st
 
     # Prepare Theano variables for inputs and targets
     input_var = T.tensor4('inputs')
@@ -285,6 +291,7 @@ def main(model='mlp', num_epochs=500):
 
     # Finally, launch the training loop.
     print("Starting training...")
+    acc_list = np.zeros((num_epochs,))
     # We iterate over epochs:
     for epoch in range(num_epochs):
         # In each epoch, we do a full pass over the training data:
@@ -300,7 +307,7 @@ def main(model='mlp', num_epochs=500):
         val_err = 0
         val_acc = 0
         val_batches = 0
-        for batch in iterate_minibatches(X_val, y_val, 500, shuffle=False):
+        for batch in iterate_minibatches(X_val, y_val, 200, shuffle=False):
             inputs, targets = batch
             err, acc = val_fn(inputs, targets)
             val_err += err
@@ -315,16 +322,21 @@ def main(model='mlp', num_epochs=500):
         print("  validation accuracy:\t\t{:.2f} %".format(
             val_acc / val_batches * 100))
 
+        acc_list[epoch] = val_acc / val_batches
+
     # After training, we compute and print the test error:
     test_err = 0
     test_acc = 0
     test_batches = 0
-    for batch in iterate_minibatches(X_test, y_test, 500, shuffle=False):
+    for batch in iterate_minibatches(X_test, y_test, 200, shuffle=False):
         inputs, targets = batch
         err, acc = val_fn(inputs, targets)
         test_err += err
         test_acc += acc
         test_batches += 1
+
+    st()
+
     print("Final results:")
     print("  test loss:\t\t\t{:.6f}".format(test_err / test_batches))
     print("  test accuracy:\t\t{:.2f} %".format(

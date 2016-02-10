@@ -1,0 +1,22 @@
+#!/bin/bash
+#	This file is to get audio files from train set for small subset
+# of words.  This file must be placed inside 'etc' directory of an4 db.
+
+words=(YES NO GO STOP HELP)
+
+echo "Please input location you would like data, followed by [ENTER]:"
+read datadir
+
+for word in ${words[*]}; do
+	echo Copying data from $word
+	if [ ! -d "$datadir/$word" ]; then
+		mkdir "$datadir/$word"
+	fi
+	for filename in $(cat an4_train.transcription | grep $word | grep -o -P '(?<=\().*(?=\))'); do
+		for file in $(cat an4_train.fileids | grep $filename | tr -s '[:space:]'); do
+			if [ -a "../wav/$file.raw" ]; then
+				cp ../wav/$file.raw "$datadir/$word/"
+			fi
+		done
+	done
+done
